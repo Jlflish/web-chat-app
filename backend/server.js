@@ -2,14 +2,19 @@
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
-
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = socketIo(server, {
+  cors: {
+    origin: "http://localhost:3000",  // 允许前端访问
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],  // 如果有必要，允许其他请求头
+  },
+});
 const mongoose = require('mongoose');
 const cors = require('cors');
-
 const authRoutes = require("./routes/auth");
+const Message = require("./models/Message");
 
 mongoose.connect('mongodb://localhost/chat-db', {
   useNewUrlParser: true,
@@ -19,7 +24,8 @@ mongoose.connect('mongodb://localhost/chat-db', {
   .catch((err) => console.log('MongoDB connection error:', err));
 
 app.use(cors({
-  origin: 'http://localhost:3000',  // 允许来自 3000 端口的请求
+  origin: "http://localhost:3000",  // 允许来自这个域的请求
+  methods: ["GET", "POST"],        // 允许的 HTTP 方法
 }));
 
 app.use(express.json());
@@ -73,9 +79,13 @@ io.on('connection', (socket) => {
   console.log('A user connected');
   
   socket.on('send_message', async (message) => {
-    const newMessage = new Message({ content: message });
-    await newMessage.save();
-    io.emit('receive_message', message);  // 广播消息
+    try {
+      const newMessage = new Message({ content: message });
+      await newMessage.save();
+      io.emit('receive_message', message);  // 广播消息
+    } catch (err) {
+      console.error("Error on saving massage", err)
+    }
   });
   
   socket.on('disconnect', () => {
