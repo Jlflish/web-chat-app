@@ -8,6 +8,8 @@ const server = http.createServer(app);
 const io = socketIo(server);
 const mongoose = require('mongoose');
 
+const authRoutes = require("./routes/auth");
+
 mongoose.connect('mongodb://localhost/chat-db', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
