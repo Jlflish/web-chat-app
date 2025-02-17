@@ -1,26 +1,21 @@
-import { useEffect, useState } from "react";
-import Chat from "./pages/Chat";
-import Login from "./pages/Login";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./pages/Login"; // 登录页面组件
+import Register from "./pages/Register"; // 注册页面组件
+import Chat from "./pages/Chat"; // 聊天页面组件
 
-function App() {
-  const [page, setPage] = useState(null); // 默认是 null，表示还在检查状态
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setPage("chat"); // 如果有 token，跳转到聊天页
-    } else {
-      setPage("login"); // 如果没有 token，跳转到登录页
-    }
-  }, []); // 只在首次加载时运行
-
-  if (page === null) return <h2>加载中...</h2>; // 等待状态检查完成
-
+const App = () => {
   return (
-    <div>
-      {page === "chat" ? <Chat /> : <Login />}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} /> {/* 根路径跳转到登录页面 */}
+        <Route path="/login" element={<Login />} /> {/* 登录页面 */}
+        <Route path="/register" element={<Register />} /> {/* 注册页面 */}
+        <Route path="/chat" element={<Chat />} /> {/* 聊天页面 */}
+        {/* 其他页面的路由 */}
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
