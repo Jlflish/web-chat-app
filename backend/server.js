@@ -29,6 +29,8 @@ app.get('/messages', async (req, res) => {
   }
 });
 
+app.use("/api/auth", authRoutes);
+
 io.on('connection', (socket) => {
   console.log('A user connected');
   
