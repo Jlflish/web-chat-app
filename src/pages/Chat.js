@@ -18,7 +18,7 @@ const Chat = () => {
     setSocket(socketInstance);
 
     // 监听服务器发送的消息
-    socketInstance.on("message", (message) => {
+    socketInstance.on("receive_message", (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
@@ -33,9 +33,10 @@ const Chat = () => {
   // 发送消息
   const handleSendMessage = (e) => {
     e.preventDefault();
-    if (message.trim()) {
-      const msg = { username, text: message };
-      socket.emit("sendMessage", msg); // 发送消息到服务器
+    if (message.trim() && socket) {
+      console.log('send message')
+      const msg = { username, content: message };
+      socket.emit("send_message", msg); // 发送消息到服务器
       setMessage(""); // 清空输入框
     }
   };
@@ -56,7 +57,7 @@ const Chat = () => {
         >
           {messages.map((msg, index) => (
             <div key={index}>
-              <strong>{msg.username}:</strong> {msg.text}
+              <strong>{msg.username}:</strong> {msg.content}
             </div>
           ))}
         </div>

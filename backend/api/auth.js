@@ -4,8 +4,12 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const router = express.Router();
 
+router.use(express.json())
+bcrypt.setRandomFallback(require("crypto").randomBytes);
+
 // 注册
 router.post("/register", async (req, res) => {
+  console.log(req.body)
   try {
     const { username, password } = req.body;
 
@@ -23,6 +27,7 @@ router.post("/register", async (req, res) => {
 
     res.status(201).json({ message: "用户注册成功" });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: "服务器错误" });
   }
 });
