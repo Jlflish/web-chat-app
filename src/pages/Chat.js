@@ -46,15 +46,7 @@ const Chat = () => {
       <h1>聊天室</h1>
       <div>
         <h2>聊天记录</h2>
-        <div
-          style={{
-            height: "300px",
-            overflowY: "scroll",
-            border: "1px solid #ccc",
-            padding: "10px",
-            marginBottom: "10px",
-          }}
-        >
+        <div        >
           {messages.map((msg, index) => (
             <div key={index}>
               <strong>{msg.username}:</strong> {msg.content}
