@@ -15,6 +15,7 @@ const io = socketIo(server, {
 const mongoose = require('mongoose');
 const cors = require('cors');
 const authRoutes = require("./api/auth");
+const friendsRoutes = require("./api/friends")
 const Message = require("./models/Message");
 
 mongoose.connect('mongodb://localhost/chat-db', {
@@ -32,6 +33,7 @@ app.use(cors({
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/friends", friendsRoutes); 
 
 app.get('/', (req, res) => {
   res.send('Chat server is running');

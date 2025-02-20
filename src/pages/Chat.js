@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
+import FriendsList from "./FriendsList"; // 引入 FriendsList 组件
 
 const Chat = () => {
   const [message, setMessage] = useState(""); // 当前输入的消息
@@ -109,6 +110,7 @@ const Chat = () => {
           </button>
         </form>
       </div>
+      <FriendsList currentUser={username} />
     </div>
   );  
 };
