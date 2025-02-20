@@ -13,7 +13,7 @@ const Login = () => {
     setError(""); // 重置错误消息
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+      const res = await axios.post("http://192.168.0.105:5000/api/auth/login", {
         username: usernameRef.current.value,
         password: passwordRef.current.value,
       });

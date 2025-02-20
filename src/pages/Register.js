@@ -20,7 +20,7 @@ const Register = () => {
   
       console.log("Sending data to backend:", payload);  // 打印请求数据
   
-      await axios.post("http://localhost:5000/api/auth/register", payload);
+      await axios.post("http://192.168.0.105:5000/api/auth/register", payload);
   
       alert("注册成功！"); // 成功后提示用户
       window.location.href = "/login"; // 注册成功后跳转到登录页

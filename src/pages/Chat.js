@@ -11,7 +11,7 @@ const Chat = () => {
 
   useEffect(() => {
     // 连接到 WebSocket 服务器
-    const socketInstance = io("http://localhost:5000", {
+    const socketInstance = io("http://192.168.0.105:5000", {
       transports: ["polling", "websocket"],  // 确保使用轮询作为回退
     });
     
